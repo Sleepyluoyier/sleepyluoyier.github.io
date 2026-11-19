@@ -81,3 +81,72 @@ body::before {
 @media print {
   body::before { display: none; }
 }
+
+/* Archives: personal experience, with all award nominations visible. */
+body:has(.experience-list) #main-wrapper > .container { max-width: 1160px; }
+body:has(.experience-list) main { width: 100%; padding-top: 30px; }
+body:has(.experience-list) #panel-wrapper { display: none; }
+body:has(.experience-list) .dynamic-title {
+  font-size: 2.15rem; font-weight: 600; letter-spacing: -.025em;
+  margin-bottom: 38px !important;
+}
+.experience-list {
+  --experience-text: #666f76;
+  --experience-strong: #49545e;
+  --experience-muted: #858b90;
+  --experience-border: #e5e9eb;
+  --experience-accent: #399b90;
+  padding: 8px 35px 4px;
+  border: 1px solid var(--experience-border);
+  border-radius: 14px;
+  background: rgba(255,255,255,.87);
+  box-shadow: 0 4px 25px rgba(44,57,68,.025);
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+.experience-entry { padding: 32px 0 34px; }
+.experience-entry + .experience-entry { border-top: 1px solid var(--experience-border); }
+.content .experience-date {
+  color: var(--experience-muted); font-size: 1.11rem;
+  margin: 0 0 22px; font-variant-numeric: tabular-nums; letter-spacing: .015em;
+}
+.experience-date span { padding: 0 5px; }
+.content .experience-intro {
+  font-size: 1.16rem; line-height: 1.85;
+  color: var(--experience-text); margin: 0 0 11px;
+}
+.experience-intro strong { font-weight: 500; color: var(--experience-strong); }
+.content .experience-result {
+  color: var(--experience-text); font-size: 1.06rem; line-height: 1.85; margin: 3px 0;
+}
+.experience-result strong { color: var(--experience-strong); font-weight: 650; }
+.experience-list .muted { color: var(--experience-muted); font-size: .88em; }
+.experience-nominations { margin-top: 19px; font-size: .95rem; color: var(--experience-text); }
+.experience-nominations .nominations-heading { color: var(--experience-accent); margin-bottom: 0; }
+.experience-nominations ul { margin: 12px 0 0; padding-left: 22px; line-height: 1.9; }
+body:has(.experience-list) #archives:not(:empty) { margin-top: 40px; }
+@mixin experience-dark {
+  .experience-list {
+    --experience-text: #bec5cd;
+    --experience-strong: #e0e5eb;
+    --experience-muted: #9aa5af;
+    --experience-border: #41464f;
+    --experience-accent: #78c8bc;
+    background: rgba(35,35,39,.94);
+  }
+}
+:root[data-bs-theme="dark"] { @include experience-dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme="light"]):not([data-bs-theme="dark"]) { @include experience-dark; }
+}
+@media (min-width: 1650px) {
+  body:has(.experience-list) #main-wrapper > .container { max-width: 1250px; }
+  body:has(.experience-list) main { padding-top: 45px; }
+}
+@media (max-width: 849px) {
+  body:has(.experience-list) main { padding-top: 20px; }
+  body:has(.experience-list) .dynamic-title { font-size: 1.8rem; margin-bottom: 24px !important; }
+  .experience-list { padding: 0 22px; }
+  .experience-entry { padding: 26px 0; }
+  .content .experience-intro { font-size: 1.04rem; }
+  .content .experience-result { font-size: .97rem; }
+}
