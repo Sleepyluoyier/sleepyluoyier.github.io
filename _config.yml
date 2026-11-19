@@ -147,9 +147,9 @@ assets:
     env: # [development | production]
 
 pwa:
-  enabled: true # The option for PWA feature (installable)
+  enabled: false # 关闭离线应用，避免旧版本长期保留
   cache:
-    enabled: true # The option for PWA offline cache
+    enabled: false # 更新内容后使用正常浏览器刷新即可
     # Paths defined here will be excluded from the PWA cache.
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.

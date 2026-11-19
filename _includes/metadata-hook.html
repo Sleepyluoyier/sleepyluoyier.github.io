@@ -1,0 +1,21 @@
+<!-- Retire any previous Chirpy offline cache when a fresh page is loaded. -->
+<script>
+(() => {
+  if (!('serviceWorker' in navigator)) return;
+  const scope = new URL('{{ "/" | relative_url }}', location.origin).href;
+  const worker = new URL('sw.min.js', scope).href;
+  navigator.serviceWorker.getRegistrations().then(async (registrations) => {
+    for (const registration of registrations) {
+      const matches = [registration.active, registration.waiting, registration.installing]
+        .some((entry) => entry && entry.scriptURL === worker);
+      if (registration.scope === scope && matches) await registration.unregister();
+    }
+    if (!('caches' in window)) return;
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((key) => key.startsWith('chirpy-')).map(async (key) => {
+      const cache = await caches.open(key);
+      if (await cache.match(scope, { ignoreSearch: true })) await caches.delete(key);
+    }));
+  }).catch(() => { /* Browsing still works when storage access is restricted. */ });
+})();
+</script>
