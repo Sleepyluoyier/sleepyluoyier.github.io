@@ -1,0 +1,83 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* Luoyier033 的背景设置。只调整图片层，不降低文字或头像的透明度。 */
+:root {
+  --luoyier-bg-opacity: 0.14; /* 越大越明显；建议 0.08 到 0.22。设为 0 可隐藏背景。 */
+  --luoyier-sidebar-bg: rgba(247, 249, 251, 0.88);
+  --luoyier-topbar-bg: rgba(255, 255, 255, 0.86);
+  --luoyier-card-bg: rgba(255, 255, 255, 0.90);
+}
+
+:root[data-bs-theme="dark"] {
+  --luoyier-bg-opacity: 0.10;
+  --luoyier-sidebar-bg: rgba(30, 30, 34, 0.92);
+  --luoyier-topbar-bg: rgba(27, 27, 30, 0.90);
+  --luoyier-card-bg: rgba(35, 35, 39, 0.94);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme="light"]):not([data-bs-theme="dark"]) {
+    --luoyier-bg-opacity: 0.10;
+    --luoyier-sidebar-bg: rgba(30, 30, 34, 0.92);
+    --luoyier-topbar-bg: rgba(27, 27, 30, 0.90);
+    --luoyier-card-bg: rgba(35, 35, 39, 0.94);
+  }
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('{{ "/assets/img/background.jpg" | relative_url }}');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: var(--luoyier-bg-opacity);
+}
+
+#main-wrapper { background: transparent; }
+
+#sidebar {
+  background: var(--luoyier-sidebar-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#topbar-wrapper {
+  background: var(--luoyier-topbar-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+#post-list .card { background: var(--luoyier-card-bg); }
+
+#avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media print {
+  body::before { display: none; }
+}

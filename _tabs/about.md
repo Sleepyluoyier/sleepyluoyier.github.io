@@ -1,8 +1,7 @@
 ---
-# the default layout is 'page'
+# 个人介绍页面：保留这两条 --- 之间的设置。
 icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+<!-- 以后把自我介绍写在这里。此注释不会显示在网页上。 -->
